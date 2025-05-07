@@ -95,13 +95,9 @@ h1 {
     border: #999 5px solid; */
 }
 
-img {
-  height: 450px;
-  width: 260px;
-  object-fit: contain;
-  position: absolute;
-  left: calc(100vw - 37vw);
-  bottom: calc(100vh - 86vh);
+footer {
+  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 @media screen and (max-width: 1750px) {
@@ -117,8 +113,8 @@ img {
     width: 30rem;
     height: 30rem;
   }
-  img {
-    display: none;
+  footer {
+    font-size: 1rem;
   }
 }
 @media screen and (max-width: 550px) {
@@ -126,16 +122,25 @@ img {
     width: 25rem;
     height: 25rem;
   }
+  footer {
+    font-size: 1rem;
+  }
 }
 @media screen and (max-width: 450px) {
   .app-container {
     width: 22rem;
     height: 27rem;
   }
+  footer {
+    font-size: 1rem;
+  }
 }
 @media screen and (max-width: 390px) {
   .app-container {
     width: 20rem;
     height: 27rem;
+  }
+  footer {
+    font-size: 1rem;
   }
 }
