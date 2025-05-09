@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=VT323&display=swap");
 
 :root {
@@ -51,6 +50,14 @@ body {
   border-radius: 1rem;
   border: 12px solid var(--border-main);
   outline: 10px solid var(--outline-color);
+}
+
+#welcome-alert {
+  z-index: 1050; /* Lebih tinggi dari body */
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 h1 {
