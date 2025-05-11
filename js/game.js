@@ -210,19 +210,6 @@ function gameOver() {
         toast.appendChild(toastText);
         toast.appendChild(closeBtn);
         document.body.appendChild(toast);
-
-        // Flashing effect for high score
-        const highScoreElement = document.getElementById('highScore');
-        let flashCount = 0;
-        const flashColors = ['#ff00ff', '#39ff14', '#00ffff'];
-        const flashInterval = setInterval(() => {
-            highScoreElement.style.color = flashColors[flashCount % flashColors.length];
-            flashCount++;
-            if (flashCount > 10) {
-                clearInterval(flashInterval);
-                highScoreElement.style.color = '';
-            }
-        }, 200);
     }
 
     // Play game over sound
