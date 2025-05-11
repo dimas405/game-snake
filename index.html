@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Snake Game</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts - Press Start 2P for retro look -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/retro-style.css">
+    <!-- Extra Responsive CSS -->
+    <link rel="stylesheet" href="css/extra-responsive.css">
+</head>
+<body>
+    <!-- CRT Scanline Effect -->
+    <div class="scanline"></div>
+
+    <div class="container-fluid game-container">
+        <div class="row">
+            <div class="col-12 text-center mt-4 mb-3">
+                <h1 class="game-title">Snake Game</h1>
+                <p class="insert-coin">INSERT COIN TO START</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="game-board-container">
+                    <canvas id="gameCanvas" class="game-canvas"></canvas>
+                    
+                    <!-- Game Overlay Screens -->
+                    <div id="startScreen" class="game-overlay active">
+                        <div class="overlay-content">
+                            <h2>SNAKE GAME</h2>
+                            <div class="loading-bar">
+                                <div class="loading-progress"></div>
+                            </div>
+                            <p>USE ARROWS OR SWIPE TO MOVE</p>
+                            <button id="startBtn" class="btn btn-primary btn-lg">START GAME</button>
+                        </div>
+                    </div>
+                    
+                    <div id="pauseScreen" class="game-overlay">
+                        <div class="overlay-content">
+                            <h2>GAME PAUSED</h2>
+                            <p class="blink-text">PRESS CONTINUE</p>
+                            <button id="resumeBtn" class="btn btn-primary btn-lg">CONTINUE</button>
+                        </div>
+                    </div>
+                    
+                    <div id="gameOverScreen" class="game-overlay">
+                        <div class="overlay-content">
+                            <h2>GAME OVER</h2>
+                            <p>YOUR SCORE: <span id="finalScore">0</span></p>
+                            <p class="blink-text">INSERT COIN TO CONTINUE</p>
+                            <button id="restartBtn" class="btn btn-primary btn-lg">PLAY AGAIN</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="score-panel">
+                    <div class="current-score">
+                        <span class="score-label">SCORE:</span>
+                        <span id="score">0</span>
+                    </div>
+                    <div class="high-score">
+                        <span class="score-label">HI-SCORE:</span>
+                        <span id="highScore">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Controls -->
+        <div class="row justify-content-center d-md-none">
+            <div class="col-12 col-sm-10">
+                <div class="mobile-controls">
+                    <div class="control-row">
+                        <button id="upBtn" class="btn btn-control">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="control-row">
+                        <button id="leftBtn" class="btn btn-control">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button id="downBtn" class="btn btn-control">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button id="rightBtn" class="btn btn-control">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Game Controls -->
+        <div class="row justify-content-center mt-3">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="game-controls">
+                    <button id="pauseBtn" class="btn btn-secondary">
+                        <i class="fas fa-pause"></i> PAUSE
+                    </button>
+                    <button id="muteBtn" class="btn btn-secondary">
+                        <i id="soundIcon" class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="game-footer">
+                    GAME ULAR &copy; 2024 - DIMAS A. PRADANA
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Tutorial Modal -->
+    <div class="modal fade" id="tutorialModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">HOW TO PLAY</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>DESKTOP CONTROLS:</h6>
+                    <p>USE ARROW KEYS TO CHANGE DIRECTION.</p>
+                    <h6>MOBILE CONTROLS:</h6>
+                    <p>USE ON-SCREEN BUTTONS OR SWIPE TO MOVE.</p>
+                    <h6>GAME RULES:</h6>
+                    <ul>
+                        <li>EAT FOOD TO GROW AND EARN POINTS</li>
+                        <li>AVOID WALLS AND YOUR OWN TAIL</li>
+                        <li>SPEED INCREASES WITH YOUR SCORE</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">GOT IT!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Game JavaScript -->
+    <script src="js/game.js"></script>
+</body>
+</html>

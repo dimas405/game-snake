@@ -1,0 +1,249 @@
+/* Extra responsive styles for snake game at various screen sizes */
+
+/* Base styles */
+html, body {
+    overscroll-behavior: none; /* Prevent overscroll effects */
+}
+
+/* Screen size specifics */
+
+/* 380px - Extra small mobile screens */
+@media (max-width: 380px) {
+    .game-title {
+        font-size: 1.2rem;
+        margin: 10px 0;
+    }
+    
+    .insert-coin {
+        font-size: 0.6rem;
+    }
+    
+    .score-panel {
+        padding: 8px;
+        font-size: 0.6rem;
+        margin: 10px auto;
+    }
+    
+    .btn-control {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .control-row {
+        gap: 4px;
+    }
+    
+    .game-controls .btn {
+        padding: 5px 8px;
+        font-size: 0.5rem;
+    }
+    
+    .overlay-content h2 {
+        font-size: 1.2rem;
+    }
+    
+    .overlay-content p {
+        font-size: 0.6rem;
+    }
+    
+    .overlay-content .btn {
+        font-size: 0.6rem;
+        padding: 6px 10px;
+    }
+    
+    .game-footer {
+        font-size: 0.5rem;
+    }
+}
+
+/* 430px - Small mobile screens */
+@media (min-width: 381px) and (max-width: 430px) {
+    .game-title {
+        font-size: 1.3rem;
+    }
+    
+    .insert-coin {
+        font-size: 0.7rem;
+    }
+    
+    .btn-control {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .control-row {
+        gap: 5px;
+    }
+    
+    .overlay-content h2 {
+        font-size: 1.4rem;
+    }
+}
+
+/* 480px - Medium mobile screens */
+@media (min-width: 431px) and (max-width: 480px) {
+    .game-title {
+        font-size: 1.5rem;
+    }
+    
+    .insert-coin {
+        font-size: 0.7rem;
+    }
+    
+    .btn-control {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .control-row {
+        gap: 6px;
+    }
+}
+
+/* 530px - Larger mobile screens */
+@media (min-width: 481px) and (max-width: 530px) {
+    .game-title {
+        font-size: 1.7rem;
+    }
+    
+    .insert-coin {
+        font-size: 0.8rem;
+    }
+    
+    .btn-control {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* 630px - Small tablets */
+@media (min-width: 531px) and (max-width: 630px) {
+    .game-title {
+        font-size: 2rem;
+    }
+    
+    .game-board-container {
+        max-width: 450px;
+    }
+    
+    .btn-control {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* 840px - Larger tablets and small desktops */
+@media (min-width: 631px) and (max-width: 840px) {
+    .game-board-container {
+        max-width: 500px;
+    }
+}
+
+/* Larger screens */
+@media (min-width: 841px) {
+    .game-board-container {
+        max-width: 600px;
+    }
+    
+    .game-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* Portrait-specific fixes */
+@media (orientation: portrait) and (max-height: 700px) {
+    .game-board-container {
+        margin-bottom: 10px;
+    }
+    
+    .score-panel {
+        margin: 10px auto;
+    }
+    
+    .mobile-controls {
+        margin: 10px 0;
+        padding: 8px;
+    }
+    
+    .game-title {
+        margin-bottom: 5px;
+    }
+    
+    .game-footer {
+        margin-top: 5px;
+    }
+}
+
+/* Landscape-specific fixes for mobile */
+@media (orientation: landscape) and (max-height: 500px) {
+    .game-title {
+        font-size: 1.2rem;
+        margin: 5px 0;
+    }
+    
+    .insert-coin {
+        display: none;
+    }
+    
+    .game-board-container {
+        max-height: 70vh;
+        aspect-ratio: 1 / 1;
+    }
+    
+    .mobile-controls {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
+    
+    .score-panel {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        flex-direction: column;
+        width: auto;
+    }
+    
+    .game-footer {
+        display: none;
+    }
+    
+    .game-controls {
+        margin: 5px 0;
+    }
+}
+
+/* Fix for very small screens in any orientation */
+@media (max-width: 320px), (max-height: 320px) {
+    .game-board-container {
+        padding: 3px;
+    }
+    
+    .btn {
+        padding: 4px 8px;
+        font-size: 0.5rem;
+    }
+}
+
+/* Button hit area improvements for touch screens */
+@media (pointer: coarse) {
+    .btn-control {
+        position: relative;
+    }
+    
+    .btn-control::after {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        z-index: 1;
+    }
+}

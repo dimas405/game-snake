@@ -1,0 +1,487 @@
+/* Enhanced Global Styles */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2E7D32;
+    --accent-color: #8BC34A;
+    --background-color: #121212;
+    --game-bg-color: #1e1e1e;
+    --text-color: #ffffff;
+    --border-radius: 16px;
+    --snake-head-color: #4CAF50;
+    --snake-body-color: #388E3C;
+    --food-color: #ff4081;
+    --shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    --glow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(135deg, #121212 25%, #1a1a1a 25%, #1a1a1a 50%, #121212 50%, #121212 75%, #1a1a1a 75%, #1a1a1a 100%);
+    background-size: 40px 40px;
+}
+
+.game-container {
+    max-width: 1200px;
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-title {
+    color: var(--accent-color);
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(139, 195, 74, 0.7);
+    margin-bottom: 15px;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Game Board Styles */
+.game-board-container {
+    position: relative;
+    background-color: var(--game-bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow), var(--glow);
+    padding: 10px;
+    margin-bottom: 20px;
+    aspect-ratio: 1 / 1;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 2px solid var(--primary-color);
+    overflow: hidden;
+}
+
+.game-board-container:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    animation: scanline 2s linear infinite;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(600px);
+    }
+}
+
+.game-canvas {
+    display: block;
+    background-color: var(--game-bg-color);
+    border: 2px solid var(--primary-color);
+    border-radius: calc(var(--border-radius) - 6px);
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
+/* Score Panel */
+.score-panel {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--game-bg-color);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin: 15px auto;
+    font-size: 1.2rem;
+    border: 1px solid var(--primary-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.score-panel:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 100%;
+    }
+}
+
+.score-label {
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-right: 5px;
+}
+
+#score, #highScore {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #ffffff;
+    text-shadow: 0 0 5px var(--primary-color);
+}
+
+/* Game Controls */
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.btn-secondary, .btn-primary {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-secondary:before, .btn-primary:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.5s;
+}
+
+.btn-secondary:hover:before, .btn-primary:hover:before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Controls */
+.mobile-controls {
+    background-color: var(--game-bg-color);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--primary-color);
+}
+
+.control-row {
+    display: flex;
+    gap: 15px;
+    margin: 5px 0;
+}
+
+.btn-control {
+    width: 70px;
+    height: 70px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.15);
+    transition: all 0.2s ease;
+}
+
+.btn-control:active {
+    transform: scale(0.92);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Game Overlay Screens */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    border-radius: var(--border-radius);
+    z-index: 10;
+    border: 2px solid var(--primary-color);
+}
+
+.game-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-content {
+    text-align: center;
+    padding: 30px;
+    color: white;
+    background-color: rgba(30, 30, 30, 0.8);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    max-width: 80%;
+    border: 1px solid var(--accent-color);
+}
+
+.game-overlay.active .overlay-content {
+    transform: scale(1);
+}
+
+.overlay-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(139, 195, 74, 0.5);
+}
+
+.overlay-content p {
+    margin-bottom: 25px;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: var(--shadow); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(76, 175, 80, 0.7); }
+    100% { transform: scale(1); box-shadow: var(--shadow); }
+}
+
+.pulse {
+    animation: pulse 0.5s;
+}
+
+/* Food timer */
+.food-timer {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    height: 5px;
+    background-color: var(--accent-color);
+    width: calc(100% - 10px);
+    transform-origin: left;
+    border-radius: 3px;
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+/* Toast notification styling */
+.game-toast {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.game-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(5px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+    .game-title {
+        font-size: 2rem;
+    }
+    
+    .score-panel {
+        padding: 10px;
+        font-size: 1rem;
+    }
+    
+    .btn-control {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .overlay-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .overlay-content {
+        padding: 20px;
+    }
+}
+
+/* Specific screen size adjustments */
+@media (max-width: 380px) {
+    .game-board-container {
+        padding: 5px;
+    }
+    
+    .btn-control {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .game-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 430px) {
+    .control-row {
+        gap: 8px;
+    }
+
+    .btn-control {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-controls .btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 530px) {
+    .overlay-content h2 {
+        font-size: 1.5rem;
+    }
+    .overlay-content p {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 630px) {
+    .game-board-container {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 840px) {
+    .game-board-container {
+        max-width: 600px;
+    }
+}
+
+/* Modal Styling */
+.modal-content {
+    background-color: var(--game-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--primary-color);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--primary-color);
+}
+
+.modal-title {
+    color: var(--accent-color);
+}
+
+/* Glow effect for snake */
+.snake-glow {
+    filter: drop-shadow(0 0 5px var(--primary-color));
+}
+
+/* Game board grid lines with neon effect */
+.grid-line {
+    stroke: rgba(76, 175, 80, 0.15);
+    stroke-width: 1;
+}
+
+/* Header with game info */
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.game-subtitle {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-top: -10px;
+    opacity: 0.8;
+}
+
+/* Footer styling */
+.game-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 10px;
+}
+
+/* Sound icon pulse effect */
+@keyframes soundPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+#soundIcon.active {
+    animation: soundPulse 0.5s ease;
+    color: var(--accent-color);
+}

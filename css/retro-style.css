@@ -1,0 +1,580 @@
+/* Retro Snake Game Styles */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --primary-color: #39ff14;    /* Neon green */
+    --secondary-color: #ff00ff;  /* Neon magenta */
+    --accent-color: #00ffff;     /* Neon cyan */
+    --background-color: #000000; /* Black background */
+    --game-bg-color: #080808;    /* Slightly lighter black for game board */
+    --text-color: #ffffff;       /* White text */
+    --alt-text-color: #ffff00;   /* Yellow text */
+    --border-radius: 0px;        /* Square corners for retro feel */
+    --snake-head-color: #39ff14; /* Neon green snake head */
+    --snake-body-color: #32cd32; /* Slightly darker green snake body */
+    --food-color: #ff00ff;       /* Neon magenta for food */
+    --shadow: 0 0 10px rgba(57, 255, 20, 0.7); /* Neon green glow */
+    --border-color: #39ff14;     /* Neon green border */
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.9) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.9) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: -1px -1px;
+    background-color: #0c0c0c;
+    line-height: 1.5;
+}
+
+.container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* CRT Effect Overlay */
+.game-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.game-container::before {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+    opacity: 0.4;
+}
+
+.game-container::after {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.5s infinite;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.27861;
+    }
+    5% {
+        opacity: 0.34769;
+    }
+    10% {
+        opacity: 0.23604;
+    }
+    15% {
+        opacity: 0.90626;
+    }
+    20% {
+        opacity: 0.18128;
+    }
+    25% {
+        opacity: 0.83891;
+    }
+    30% {
+        opacity: 0.65583;
+    }
+    35% {
+        opacity: 0.67807;
+    }
+    40% {
+        opacity: 0.26559;
+    }
+    45% {
+        opacity: 0.84693;
+    }
+    50% {
+        opacity: 0.96019;
+    }
+    55% {
+        opacity: 0.08594;
+    }
+    60% {
+        opacity: 0.20313;
+    }
+    65% {
+        opacity: 0.71988;
+    }
+    70% {
+        opacity: 0.53455;
+    }
+    75% {
+        opacity: 0.37288;
+    }
+    80% {
+        opacity: 0.71428;
+    }
+    85% {
+        opacity: 0.70419;
+    }
+    90% {
+        opacity: 0.7003;
+    }
+    95% {
+        opacity: 0.36108;
+    }
+    100% {
+        opacity: 0.24387;
+    }
+}
+
+/* Scanline Effect */
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+.scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 8;
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(57, 255, 20, 0.2) 10%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    position: fixed;
+    pointer-events: none;
+    animation: scanline 8s linear infinite;
+}
+
+/* Main Game Title */
+.game-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+    margin: 20px 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    animation: textPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes textPulse {
+    from {
+        text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
+    }
+    to {
+        text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+    }
+}
+
+/* Game Board Container */
+.game-board-container {
+    position: relative;
+    background-color: var(--game-bg-color);
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 0 20px var(--primary-color);
+    padding: 10px;
+    margin-bottom: 20px;
+    aspect-ratio: 1 / 1;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.game-board-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Game Canvas */
+.game-canvas {
+    display: block;
+    background-color: var(--game-bg-color);
+    border: 2px solid var(--primary-color);
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    position: relative;
+    z-index: 1;
+}
+
+/* Score Panel */
+.score-panel {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--game-bg-color);
+    border: 3px solid var(--primary-color);
+    padding: 15px;
+    margin: 15px auto;
+    font-size: 1rem;
+    box-shadow: 0 0 15px var(--primary-color);
+    text-transform: uppercase;
+}
+
+.current-score, .high-score {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.score-label {
+    font-weight: 400;
+    color: var(--alt-text-color);
+    margin-right: 5px;
+}
+
+#score, #highScore {
+    font-weight: 400;
+    color: var(--primary-color);
+    min-width: 50px;
+    text-align: right;
+}
+
+/* Game Controls */
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.btn {
+    font-family: 'Press Start 2P', cursive;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    padding: 12px 20px;
+}
+
+.btn-secondary {
+    background-color: var(--game-bg-color);
+    color: var(--primary-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--game-bg-color);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+/* Mobile Controls */
+.mobile-controls {
+    background-color: var(--game-bg-color);
+    border: 3px solid var(--primary-color);
+    padding: 15px;
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+.control-row {
+    display: flex;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.btn-control {
+    width: 60px;
+    height: 60px;
+    background-color: var(--game-bg-color);
+    color: var(--primary-color);
+    border: 3px solid var(--primary-color);
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 0 10px var(--primary-color);
+    transition: all 0.2s ease;
+}
+
+.btn-control:active {
+    transform: scale(0.95);
+    background-color: var(--primary-color);
+    color: var(--game-bg-color);
+}
+
+/* Game Overlay Screens */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.game-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-content {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-color);
+    background-color: var(--game-bg-color);
+    border: 3px solid var(--primary-color);
+    max-width: 80%;
+    box-shadow: 0 0 20px var(--primary-color);
+}
+
+.overlay-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+.overlay-content p {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: var(--alt-text-color);
+    text-transform: uppercase;
+}
+
+/* Toast notification styling */
+.game-toast {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--game-bg-color);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 10px 20px;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 100;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+.game-toast.show {
+    opacity: 1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+    .game-title {
+        font-size: 1.5rem;
+    }
+    
+    .score-panel {
+        padding: 10px;
+        font-size: 0.7rem;
+    }
+    
+    .btn-control {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .overlay-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .overlay-content p {
+        font-size: 0.7rem;
+    }
+
+    .btn {
+        font-size: 0.6rem;
+        padding: 8px 12px;
+    }
+}
+
+/* Specific screen sizes */
+@media (max-width: 380px) {
+    .game-board-container {
+        padding: 5px;
+    }
+    
+    .btn-control {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+        border-width: 2px;
+    }
+
+    .game-title {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 430px) {
+    .control-row {
+        gap: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-controls .btn {
+        padding: 6px 10px;
+        font-size: 0.6rem;
+    }
+}
+
+@media (min-width: 630px) {
+    .game-board-container {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 840px) {
+    .game-board-container {
+        max-width: 600px;
+    }
+}
+
+/* Modal Styling */
+.modal-content {
+    background-color: var(--game-bg-color);
+    color: var(--text-color);
+    border: 3px solid var(--primary-color);
+    font-family: 'Press Start 2P', cursive;
+}
+
+.modal-header {
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.modal-footer {
+    border-top: 2px solid var(--primary-color);
+}
+
+.modal-title {
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 1.2rem;
+}
+
+/* Blink animation for text */
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.blink-text {
+    animation: blink 1s infinite;
+}
+
+/* Insert Coin Text */
+.insert-coin {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--alt-text-color);
+    font-size: 0.9rem;
+    animation: blink 1.5s infinite;
+}
+
+/* Footer */
+.game-footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.7rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+/* Power button effect */
+#muteBtn {
+    position: relative;
+    overflow: hidden;
+}
+
+#muteBtn::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 10px var(--secondary-color);
+}
+
+/* Loading bar effect */
+.loading-bar {
+    width: 100%;
+    height: 5px;
+    background-color: var(--game-bg-color);
+    position: relative;
+    margin: 10px 0;
+    border: 1px solid var(--primary-color);
+}
+
+.loading-progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0%;
+    animation: loading 2s forwards;
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
