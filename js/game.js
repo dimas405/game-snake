@@ -163,19 +163,60 @@ function resumeGame() {
 function gameOver() {
     gameState = 'gameover';
     clearInterval(gameLoop);
-    
+
     // Update high score if needed
     if (score > highScore) {
         highScore = score;
         localStorage.setItem('snakeHighScore', highScore);
         document.getElementById('highScore').textContent = highScore;
-        showToast('NEW HIGH SCORE!');
-        
-        // Add flashing effect to the high score display for retro feel
+
+        // Custom toast with close button and styled font/color
+        const toast = document.createElement('div');
+        toast.style.position = 'fixed';
+        toast.style.bottom = '20px';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.backgroundColor = '#111';
+        toast.style.border = '2px solid #ffcc00';
+        toast.style.padding = '14px 24px';
+        toast.style.borderRadius = '10px';
+        toast.style.zIndex = '9999';
+        toast.style.boxShadow = '0 0 12px #ffcc00aa';
+        toast.style.display = 'flex';
+        toast.style.alignItems = 'center';
+
+        // Text content with custom color & font
+        const toastText = document.createElement('span');
+        toastText.textContent = 'NEW HIGH SCORE!';
+        toastText.style.color = '#ffcc00';
+        toastText.style.fontFamily = '"Press Start 2P", monospace';
+        toastText.style.fontSize = '14px';
+        toastText.style.letterSpacing = '1px';
+
+        // Close button
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '×';
+        closeBtn.style.marginLeft = '16px';
+        closeBtn.style.background = 'transparent';
+        closeBtn.style.border = 'none';
+        closeBtn.style.color = '#ffcc00';
+        closeBtn.style.fontSize = '18px';
+        closeBtn.style.cursor = 'pointer';
+
+        closeBtn.addEventListener('click', () => {
+            toast.remove();
+        });
+
+        toast.appendChild(toastText);
+        toast.appendChild(closeBtn);
+        document.body.appendChild(toast);
+
+        // Flashing effect for high score
         const highScoreElement = document.getElementById('highScore');
         let flashCount = 0;
+        const flashColors = ['#ff00ff', '#39ff14', '#00ffff'];
         const flashInterval = setInterval(() => {
-            highScoreElement.style.color = flashCount % 2 === 0 ? '#ff00ff' : '#39ff14';
+            highScoreElement.style.color = flashColors[flashCount % flashColors.length];
             flashCount++;
             if (flashCount > 10) {
                 clearInterval(flashInterval);
@@ -183,11 +224,11 @@ function gameOver() {
             }
         }, 200);
     }
-    
-    // Play game over sound with retro arcade feel
+
+    // Play game over sound
     playSound('gameOver');
-    
-    // Add glitch effect to canvas before showing game over
+
+    // Glitch effect
     const glitchCanvas = () => {
         ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
         for (let i = 0; i < 10; i++) {
@@ -198,15 +239,13 @@ function gameOver() {
             ctx.fillRect(x, y, width, height);
         }
     };
-    
-    // Create glitch effect animation
+
     let glitchCount = 0;
     const glitchEffect = setInterval(() => {
         glitchCanvas();
         glitchCount++;
         if (glitchCount > 5) {
             clearInterval(glitchEffect);
-            // Show game over screen after glitch effect
             toggleOverlay('gameOverScreen', true);
         }
     }, 100);
